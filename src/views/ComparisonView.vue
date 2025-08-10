@@ -7,7 +7,7 @@
       <div class="flex gap-2">
         <div>Отобразить товары:</div>
         <div
-          v-for="number in products.length"
+          v-for="number in items.length"
           :key="number"
           class="cursor-pointer"
           @click="itemsCount = number"
@@ -97,7 +97,16 @@ const items = ref(products.value);
 const itemsCount = ref(items.value.length < 3 ? items.value.length : 3);
 
 const showDifference = ref(false);
-const tableRows = (Object.keys(items.value[0])).filter((key) => key !== 'name' && key !== 'image');
+
+const tableRows = computed(() => {
+  const allRows = (Object.keys(items.value[0])).filter((key) => key !== 'name' && key !== 'image');
+  if (!showDifference.value) return allRows;
+  const visibleItems = items.value.slice(0, itemsCount.value);
+  return allRows.filter(key => {
+    const firstVal = visibleItems[0][key];
+    return !visibleItems.every(item => item[key] === firstVal);
+  });
+});
 
 const openIndex = ref<number | null>(null)
 const query = ref('')
