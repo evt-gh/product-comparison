@@ -1,0 +1,63 @@
+@import "tailwindcss";
+
+@font-face {
+  font-family: 'Roboto';
+  src: url('/src/assets/fonts/Roboto-Black.ttf') format("truetype");
+  font-weight: 900;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: url('/src/assets/fonts/Roboto-Bold.ttf') format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: url('/src/assets/fonts/Roboto-Medium.ttf') format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+@font-face {
+  font-family: 'Roboto';
+  src: url('/src/assets/fonts/Roboto-Regular.ttf') format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+/* Tailwind theme settings */
+@theme static {
+  --color-primary: #0D5ADC;
+  --color-blue-200: #F4F9FC;
+  --color-gray-800: #3B4157;
+  --color-gray-700: #828286;
+  --color-gray-600: #A6A5A9;
+  --color-gray-500: #A4A9B9;
+  --color-gray-400: #C1C1C1;
+  --color-gray-300: #CDCFD2;
+  --color-gray-200: #E3E3E3;
+
+  --font-display: "Roboto", sans-serif;
+}
+
+.main-container {
+  @media screen and (min-width: 1280px) {
+    width: 1110px;
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: 0px;
+    padding-right: 0px;
+  }
+  @media screen and (max-width: 1279px) {
+    padding-left: 44px;
+    padding-right: 44px;
+  }
+  @media screen and (max-width: 767px) {
+    padding-left: 28px;
+    padding-right: 28px;
+  }
+  @media screen and (max-width: 479px) {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
