@@ -40,7 +40,29 @@
                 v-if="itemsCount < items.length"
                 class="h-5 w-5 relative"
               >
-
+                <div @click="togglePopup(index)" class="h-5 w-5 cursor-pointer">V</div>
+                <div
+                  v-if="openIndex === index"
+                  v-click-outside="closePopup"
+                  class="absolute bg-white rounded border w-64 h-48 right-0 p-4 overflow-y-auto"
+                >
+                  <input
+                    v-if="items.length - itemsCount > 3"
+                    v-model="query"
+                    class="w-full"
+                    placeholder="Поиск"
+                  >
+                  <div
+                    v-for="(innerItem, innerIndex) in hiddenFilteredItems"
+                    class="flex gap-2 mt-2"
+                  >
+                    <div @click="replaceItem(index, itemsCount + innerIndex)">+</div>
+                    <div class="h-6 w-6 shrink-0">
+                      <img :src="innerItem.image" class="w-full h-full object-contain" />
+                    </div>
+                    <div>{{ innerItem.name }}</div>
+                  </div>
+                </div>
               </div>
             </div>
             {{ item.name }}
@@ -64,7 +86,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useComparisonStore } from '@/stores/comparison';
 
@@ -72,10 +94,33 @@ const comparisonStore = useComparisonStore();
 const { products, parametersNames } = storeToRefs(comparisonStore);
 
 const items = ref(products.value);
-
 const itemsCount = ref(items.value.length < 3 ? items.value.length : 3);
 
 const showDifference = ref(false);
-
 const tableRows = (Object.keys(items.value[0])).filter((key) => key !== 'name' && key !== 'image');
+
+const openIndex = ref<number | null>(null)
+const query = ref('')
+const togglePopup = (index: number) => {
+  query.value = ''
+  openIndex.value = openIndex.value === index ? null : index
+}
+const closePopup = () => {
+  openIndex.value = null
+  query.value = ''
+}
+const replaceItem = (index: number, replaceIndex: number) => {
+  const temp = items.value[index];
+  items.value[index] = items.value[replaceIndex];
+  items.value[replaceIndex] = temp;
+  closePopup()
+}
+const hiddenFilteredItems = computed(() => {
+  const hiddenItems = items.value.slice(itemsCount.value);
+  if (!query.value.trim()) return hiddenItems;
+  const lowerQuery = query.value.toLowerCase();
+  return hiddenItems.filter(item => {
+    return Object.values(item).some(val => String(val).toLowerCase().includes(lowerQuery))
+  });
+})
 </script>
