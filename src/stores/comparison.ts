@@ -22,7 +22,7 @@ export const useComparisonStore = defineStore('comparison', {
       {
         id: 'phone1',
         name: 'Apple iPhone 12',
-        image: '/src/assets/images/phone-1.png',
+        image: '/images/phone-1.png',
         company: 'Apple',
         year: 2020,
         screenDiagonal: 6.1,
@@ -37,7 +37,7 @@ export const useComparisonStore = defineStore('comparison', {
       {
         id: 'phone2',
         name: 'Xiaomi Mi 11 Life',
-        image: '/src/assets/images/phone-2.png',
+        image: '/images/phone-2.png',
         company: 'Xiaomi',
         year: 2021,
         screenDiagonal: 6.55,
@@ -52,7 +52,7 @@ export const useComparisonStore = defineStore('comparison', {
       {
         id: 'phone3',
         name: 'Samsung Galaxy A72',
-        image: '/src/assets/images/phone-3.png',
+        image: '/images/phone-3.png',
         company: 'Samsung',
         year: 2021,
         screenDiagonal: 6.7,
@@ -67,7 +67,7 @@ export const useComparisonStore = defineStore('comparison', {
       {
         id: 'phone4',
         name: 'Samsung Galaxy S21',
-        image: '/src/assets/images/phone-4.png',
+        image: '/images/phone-4.png',
         company: 'Samsung',
         year: 2021,
         screenDiagonal: 6.2,
@@ -82,7 +82,7 @@ export const useComparisonStore = defineStore('comparison', {
       {
         id: 'phone5',
         name: 'Apple iPhone Xr',
-        image: '/src/assets/images/phone-5.png',
+        image: '/images/phone-5.png',
         company: 'Apple',
         year: 2018,
         screenDiagonal: 6.1,
@@ -97,7 +97,7 @@ export const useComparisonStore = defineStore('comparison', {
       {
         id: 'phone6',
         name: 'Realme 8 Pro',
-        image: '/src/assets/images/phone-6.png',
+        image: '/images/phone-6.png',
         company: 'Realme',
         year: 2021,
         screenDiagonal: 6.4,
@@ -112,7 +112,7 @@ export const useComparisonStore = defineStore('comparison', {
       {
         id: 'phone7',
         name: 'Google Pixel 6',
-        image: '/src/assets/images/phone-7.jpg',
+        image: '/images/phone-7.jpg',
         company: 'Google',
         year: 2021,
         screenDiagonal: 6.4,
@@ -127,7 +127,7 @@ export const useComparisonStore = defineStore('comparison', {
       {
         id: 'phone8',
         name: 'OnePlus 9 Pro',
-        image: '/src/assets/images/phone-8.jpeg',
+        image: '/images/phone-8.jpeg',
         company: 'OnePlus',
         year: 2021,
         screenDiagonal: 6.7,

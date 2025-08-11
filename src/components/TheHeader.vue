@@ -9,7 +9,7 @@
             <div class="flex items-center gap-x-5">
               <div>Личный кабинет</div>
               <div class="h-5 w-5">
-                <img src="/src/assets/icons/user.svg" class="h-full w-full object-contain">
+                <img src="/icons/user.svg" class="h-full w-full object-contain">
               </div>
             </div>
           </router-link>

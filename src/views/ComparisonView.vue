@@ -57,7 +57,7 @@
                     class="h-6 w-6 relative"
                   >
                     <div @click="togglePopup(index)" class="h-6 w-6 shrink-0 cursor-pointer mt-5">
-                      <img src="/src/assets/icons/chevron-down.svg" class="h-full w-full object-contain">
+                      <img src="/icons/chevron-down.svg" class="h-full w-full object-contain">
                     </div>
 
                     <!--   Table header --- phone cells --- popup  -->
@@ -82,7 +82,7 @@
                           @click="replaceItem(item.id, innerItem.id)"
                           class="h-5 w-5 cursor-pointer"
                         >
-                          <img class="w-full h-full object-contain" src="/src/assets/icons/replace.svg">
+                          <img class="w-full h-full object-contain" src="/icons/replace.svg">
                         </div>
                         <div class="h-[50px] w-8 shrink-0">
                           <img :src="innerItem.image" class="w-full h-full object-contain">
@@ -137,12 +137,12 @@
                   {{ item[key] }} Гц
                 </div>
                 <div v-else-if="key === 'cost'">
-                  {{ $formatPrice(item[key]) }}
+                  {{ $formatPrice(item[key] as number) }}
                 </div>
                 <div v-else-if="typeof item[key] === 'boolean'" class="h-[22px] w-[22px]">
                   <img
                     class="h-full w-full object-contain"
-                    :src="item[key] ? '/src/assets/icons/check-mark.svg' : '/src/assets/icons/cross.svg'"
+                    :src="item[key] ? '/icons/check-mark.svg' : '/icons/cross.svg'"
                   />
                 </div>
                 <div v-else>
@@ -208,7 +208,9 @@ const hiddenFilteredItems = computed(() => {
   if (!query.value.trim()) return hiddenItems;
   const lowerQuery = query.value.toLowerCase();
   return hiddenItems.filter(item => {
-    return Object.values(item).some(val => String(val).toLowerCase().includes(lowerQuery));
+    return Object.entries(item)
+      .filter(([key]) => key !== 'id' && key !== 'image') // исключаем id
+      .some(([, val]) => String(val).toLowerCase().includes(lowerQuery));
   });
 });
 </script>
