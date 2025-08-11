@@ -1,115 +1,132 @@
 <template>
-  <div class="main-container pb-24">
-    <div class="flex justify-between items-center">
-      <div class="font-bold text-5xl text-gray-700 tracking-wide">
-        Смартфоны
-      </div>
-      <div class="flex gap-2 text-lg text-primary">
-        <div>Отобразить товары:</div>
-        <div
-          v-for="number in items.length"
-          :key="number"
-          class="cursor-pointer"
-          @click="itemsCount = number"
-        >
+  <div class="bg-blue-200 pb-24">
+    <div class="bg-white pt-[60px]">
+      <div class="main-container flex justify-between items-center">
+        <div class="font-bold text-5xl text-gray-700 tracking-wide">
+          Смартфоны
+        </div>
+        <div class="flex gap-2 text-lg text-primary">
+          <div>Отобразить товары:</div>
+          <div
+            v-for="number in items.length"
+            :key="number"
+            class="cursor-pointer"
+            @click="itemsCount = number"
+          >
           <span
             v-if="number > 1 && number <= 6"
             :class="number === itemsCount ? 'underline' : ''"
           >
             {{ number }}
           </span>
+          </div>
         </div>
       </div>
     </div>
 
-    <table class="w-full mt-5">
-      <thead class="border-b border-b-gray-300">
-        <tr>
-          <th class="text-start w-[285px] align-bottom pb-[64px]">
-            <div class="flex items-center gap-3">
+    <div>
+      <div class="bg-white pt-5">
+        <div class="flex border-b border-b-gray-300 main-container items-end pb-16">
+          <div class="w-[285px] shrink-0">
+            <div class="flex items-center">
               <input type="checkbox" v-model="showDifference" id="showDifference" class="h-6 w-6">
-              <label class="text-lg text-primary font-normal" for="showDifference">Показать различия</label>
+              <label class="text-lg text-primary font-normal pl-3" for="showDifference">Показать различия</label>
             </div>
-          </th>
-          <th
-            v-for="(item, index) in items.slice(0, itemsCount)"
-            :key="index"
-            class="pb-[64px]"
-          >
-            <div class="flex gap-2 justify-center items-center text-center h-30">
-              <img class="h-30" :src="item.image" />
+          </div>
+          <div class="w-full">
+            <div class="grid" :style="{'grid-template-columns': 'repeat(' + itemsCount + ', minmax(0, 1fr))'}">
               <div
-                v-if="itemsCount < items.length"
-                class="h-5 w-5 relative"
+                v-for="(item, index) in items.slice(0, itemsCount)"
+                :key="index"
               >
-                <div @click="togglePopup(index)" class="h-[27px] w-[30px] shrink-0 cursor-pointer mt-5">
-                  <img src="/src/assets/icons/chevron-down.png" class="h-full w-full object-contain">
-                </div>
-                <div
-                  v-if="openIndex === index"
-                  v-click-outside="closePopup"
-                  class="absolute bg-white rounded border border-gray-200 w-[421px] h-[336px] right-0 p-4 overflow-y-auto"
-                >
-                  <input
-                    v-if="items.length - itemsCount > 3"
-                    v-model="query"
-                    class="w-full border border-gray-400 text-xl px-4 py-2 font-normal rounded mb-5 mt-4"
-                    placeholder="Поиск"
-                  >
+                <div class="flex gap-2 justify-center items-center text-center h-30">
+                  <img class="h-30" :src="item.image" />
                   <div
-                    v-for="(innerItem, innerIndex) in hiddenFilteredItems"
-                    class="flex items-center gap-4 mb-8 last:mb-0"
+                    v-if="itemsCount < items.length"
+                    class="h-6 w-6 relative"
                   >
+                    <div @click="togglePopup(index)" class="h-6 w-6 shrink-0 cursor-pointer mt-5">
+                      <img src="/src/assets/icons/chevron-down.svg" class="h-full w-full object-contain">
+                    </div>
                     <div
-                      @click="replaceItem(index, itemsCount + innerIndex)"
-                      class="h-5 w-5 cursor-pointer"
+                      v-if="openIndex === index"
+                      v-click-outside="closePopup"
+                      class="absolute bg-white rounded border border-gray-200 w-[421px] max-h-[336px] min-h-max right-0 p-4 overflow-y-auto drop-shadow-xl"
                     >
-                      <img class="w-full h-full object-contain" src="/src/assets/icons/replace.png">
+                      <input
+                        v-if="items.length - itemsCount > 3"
+                        v-model="query"
+                        class="w-full border border-gray-400 text-xl px-4 py-2 font-normal rounded mb-5 mt-4"
+                        placeholder="Поиск"
+                      >
+                      <div
+                        v-for="(innerItem, innerIndex) in hiddenFilteredItems"
+                        class="flex items-center gap-4 mb-8 last:mb-0"
+                      >
+                        <div
+                          @click="replaceItem(index, itemsCount + innerIndex)"
+                          class="h-5 w-5 cursor-pointer"
+                        >
+                          <img class="w-full h-full object-contain" src="/src/assets/icons/replace.svg">
+                        </div>
+                        <div class="h-[50px] w-8 shrink-0">
+                          <img :src="innerItem.image" class="w-full h-full object-contain">
+                        </div>
+                        <div class="text-start text-lg font-normal">{{ innerItem.name }}</div>
+                      </div>
                     </div>
-                    <div class="h-[50px] w-8 shrink-0">
-                      <img :src="innerItem.image" class="w-full h-full object-contain">
-                    </div>
-                    <div class="text-start text-lg font-normal">{{ innerItem.name }}</div>
                   </div>
+                </div>
+                <div class="text-center text-gray-800 text-lg font-medium mt-2">{{ item.name }}</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="main-container">
+        <div
+          v-for="key in tableRows"
+          :key="key"
+          class="border-b border-b-gray-300 text-lg font-medium flex items-center"
+        >
+          <div class="w-[285px] uppercase text-gray-500 py-8 pr-8 shrink-0">
+            {{ parametersNames[key] || key }}
+          </div>
+          <div class="w-full">
+            <div class="grid" :style="{'grid-template-columns': 'repeat(' + itemsCount + ', minmax(0, 1fr))'}">
+              <div
+                v-for="(item, index) in items.slice(0, itemsCount)"
+                :key="index"
+                class="text-gray-800 py-8"
+              >
+                <div v-if="key === 'screenDiagonal'">
+                  {{ item[key].toLocaleString('ru-RU') }}
+                </div>
+                <div v-else-if="key === 'memory'">
+                  {{ item[key] }} Гб
+                </div>
+                <div v-else-if="key === 'screenRefreshRate'">
+                  {{ item[key] }} Гц
+                </div>
+                <div v-else-if="key === 'cost'">
+                  {{ item[key] }}
+                </div>
+                <div v-else-if="typeof item[key] === 'boolean'" class="h-[22px] w-[22px]">
+                  <img
+                    class="h-full w-full object-contain"
+                    :src="item[key] ? '/src/assets/icons/check-mark.svg' : '/src/assets/icons/cross.svg'"
+                  />
+                </div>
+                <div v-else>
+                  {{ item[key] }}
                 </div>
               </div>
             </div>
-            <div class="text-gray-800 text-lg font-medium mt-2">{{ item.name }}</div>
-          </th>
-        </tr>
-      </thead>
-      <tbody class="bg-blue-200">
-        <tr v-for="key in tableRows" :key="key" class="border-b border-b-gray-300 text-lg font-medium">
-          <td class="text-start w-[285px] uppercase text-gray-500 py-8 pr-8">
-            {{ parametersNames[key] || key }}
-          </td>
-          <td
-            v-for="(item, index) in items.slice(0, itemsCount)"
-            :key="index"
-            class="text-start text-gray-800 py-8"
-          >
-            <div v-if="key === 'memory'">
-              {{ item[key] }} Гб
-            </div>
-            <div v-else-if="key === 'screenRefreshRate'">
-              {{ item[key] }} Гц
-            </div>
-            <div v-else-if="key === 'cost'">
-              {{ item[key] }}
-            </div>
-            <div v-else-if="typeof item[key] === 'boolean'" class="h-[22px] w-[22px]">
-              <img
-                class="h-full w-full object-contain"
-                :src="item[key] ? '/src/assets/icons/check-mark.png' : '/src/assets/icons/cross.png'"
-              />
-            </div>
-            <div v-else>
-              {{ item[key] }}
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
