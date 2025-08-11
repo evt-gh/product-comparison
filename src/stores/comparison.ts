@@ -1,6 +1,7 @@
 import { defineStore } from 'pinia';
 
 export interface Product {
+  id: string;
   name: string;
   image: string;
   company: string;
@@ -19,6 +20,7 @@ export const useComparisonStore = defineStore('comparison', {
   state: () => ({
     products: [
       {
+        id: 'phone1',
         name: 'Apple iPhone 12',
         image: '/src/assets/images/phone-1.png',
         company: 'Apple',
@@ -33,6 +35,7 @@ export const useComparisonStore = defineStore('comparison', {
         cost: 81990,
       },
       {
+        id: 'phone2',
         name: 'Xiaomi Mi 11 Life',
         image: '/src/assets/images/phone-2.png',
         company: 'Xiaomi',
@@ -47,6 +50,7 @@ export const useComparisonStore = defineStore('comparison', {
         cost: 27490,
       },
       {
+        id: 'phone3',
         name: 'Samsung Galaxy A72',
         image: '/src/assets/images/phone-3.png',
         company: 'Samsung',
@@ -61,6 +65,7 @@ export const useComparisonStore = defineStore('comparison', {
         cost: 32890,
       },
       {
+        id: 'phone4',
         name: 'Samsung Galaxy S21',
         image: '/src/assets/images/phone-4.png',
         company: 'Samsung',
@@ -75,6 +80,7 @@ export const useComparisonStore = defineStore('comparison', {
         cost: 69990,
       },
       {
+        id: 'phone5',
         name: 'Apple iPhone Xr',
         image: '/src/assets/images/phone-5.png',
         company: 'Apple',
@@ -89,6 +95,7 @@ export const useComparisonStore = defineStore('comparison', {
         cost: 42990,
       },
       {
+        id: 'phone6',
         name: 'Realme 8 Pro',
         image: '/src/assets/images/phone-6.png',
         company: 'Realme',
@@ -103,6 +110,7 @@ export const useComparisonStore = defineStore('comparison', {
         cost: 24990,
       },
       {
+        id: 'phone7',
         name: 'Google Pixel 6',
         image: '/src/assets/images/phone-7.jpg',
         company: 'Google',
@@ -117,6 +125,7 @@ export const useComparisonStore = defineStore('comparison', {
         cost: 59990,
       },
       {
+        id: 'phone8',
         name: 'OnePlus 9 Pro',
         image: '/src/assets/images/phone-8.jpeg',
         company: 'OnePlus',
@@ -132,6 +141,7 @@ export const useComparisonStore = defineStore('comparison', {
       }
     ] as Product[],
     parametersNames: {
+      id: 'ID',
       name: 'Название',
       image: 'Изображение',
       company: 'Производитель',
