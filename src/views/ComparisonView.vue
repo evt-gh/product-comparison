@@ -51,7 +51,8 @@
                     <div
                       v-if="openIndex === index"
                       v-click-outside="closePopup"
-                      class="absolute bg-white rounded border border-gray-200 w-[421px] max-h-[336px] min-h-max right-0 p-4 overflow-y-auto drop-shadow-xl"
+                      class="absolute bg-white rounded border border-gray-200 w-[421px] right-0 p-4 drop-shadow-xl"
+                      :class="items.length - itemsCount > 3 ? 'h-[336px] overflow-y-auto' : ''"
                     >
                       <input
                         v-if="items.length - itemsCount > 3"
@@ -110,7 +111,7 @@
                   {{ item[key] }} Гц
                 </div>
                 <div v-else-if="key === 'cost'">
-                  {{ item[key] }}
+                  {{ $formatPrice(item[key]) }}
                 </div>
                 <div v-else-if="typeof item[key] === 'boolean'" class="h-[22px] w-[22px]">
                   <img
@@ -131,7 +132,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed } from 'vue';
+import { ref, computed, inject } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useComparisonStore } from '@/stores/comparison';
 
@@ -177,4 +178,6 @@ const hiddenFilteredItems = computed(() => {
     return Object.values(item).some(val => String(val).toLowerCase().includes(lowerQuery))
   });
 })
+
+const formatPrice = inject<(price: number) => string>('formatPrice');
 </script>
